@@ -1,0 +1,35 @@
+@url = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJGaWxtZXMgQVBJIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIyODc1NzJ9.FSkSZUhSSxxypgnPQKAmrkKxec2Fkt7v3NE-h3B_VR4
+
+POST {{url}}/afericoes
+Authorization:  Bearer {{token}}
+Content-Type: application/json
+
+{
+    "idSensor" : "34",
+    "unidade" : "Graus Celsius",
+    "valor" : "26"
+}
+
+###
+GET {{url}}/afericoes
+Authorization:  Bearer {{token}}
+
+###
+PUT {{url}}/afericoes/1
+Authorization:  Bearer {{token}}
+Content-Type: application/json
+
+{
+    "idSensor" : "34",
+    "unidade" : "Graus Celsius",
+    "valor" : "30"
+}
+
+###
+GET {{url}}/afericoes/1
+Authorization:  Bearer {{token}}
+
+###
+DELETE {{url}}/afericoes/1
+Authorization:  Bearer {{token}}
