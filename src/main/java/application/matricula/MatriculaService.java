@@ -1,76 +1,64 @@
 package application.matricula;
 
-import java.util.Optional;
-
+import application.aluno.AlunoRepository;
+import application.curso.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import application.aluno.AlunoService;
-import application.curso.CursoService;
+import java.time.LocalDate;
 
 @Service
-public class MatriculaService {
-
-    @Autowired
-    private MatriculaRepository matriculaRepo;
-
-    @Autowired
-    private AlunoService alunoService;
-
-    @Autowired
-    private CursoService cursoService;
+class MatriculaService {
+    @Autowired private MatriculaRepository repo;
+    @Autowired private AlunoRepository alunoRepo;
+    @Autowired private CursoRepository cursoRepo;
 
     public Iterable<MatriculaDTO> getAll() {
-        return matriculaRepo.findAll().stream().map(MatriculaDTO::new).toList();
+        return repo.findAll().stream().map(MatriculaDTO::new).toList();
     }
 
     public MatriculaDTO insert(MatriculaInsertDTO dados) {
-        // Validar se o aluno e o curso existem
-        alunoService.getOne(dados.aluno().getId());
-        cursoService.getOne(dados.curso().getId());
+        var aluno = alunoRepo.findById(dados.idAluno())
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado"));
+        
+        var curso = cursoRepo.findById(dados.idCurso())
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Curso não encontrado"));
 
-        Matricula novaMatricula = new Matricula(dados);
-        return new MatriculaDTO(matriculaRepo.save(novaMatricula));
+        Matricula m = new Matricula();
+        m.setAluno(aluno);
+        m.setCurso(curso);
+        m.setStatus(dados.status());
+        m.setDataMatricula(LocalDate.now());
+
+        return new MatriculaDTO(repo.save(m));
     }
 
     public MatriculaDTO getOne(long id) {
-        Optional<Matricula> resultado = matriculaRepo.findById(id);
-
-        if (resultado.isEmpty()) {
-            throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Matrícula não encontrada"
-            );
-        }
-
-        return new MatriculaDTO(resultado.get());
+        return repo.findById(id).map(MatriculaDTO::new)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Matrícula não encontrada"));
     }
 
-    public MatriculaDTO update(long id, MatriculaInsertDTO dadosMatricula) {
-        Optional<Matricula> resultado = matriculaRepo.findById(id);
+    public MatriculaDTO update(long id, MatriculaInsertDTO dados) {
+        var matricula = repo.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Matrícula não encontrada"));
+        
+        var aluno = alunoRepo.findById(dados.idAluno())
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado"));
+        
+        var curso = cursoRepo.findById(dados.idCurso())
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Curso não encontrado"));
 
-        if (resultado.isEmpty()) {
-            throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Matrícula não encontrada"
-            );
-        }
-
-        Matricula matriculaAtualizada = resultado.get();
-        matriculaAtualizada.setDataMatricula(dadosMatricula.dataMatricula());
-        matriculaAtualizada.setStatus(dadosMatricula.status());
-        matriculaAtualizada.setAluno(dadosMatricula.aluno());
-        matriculaAtualizada.setCurso(dadosMatricula.curso());
-
-        return new MatriculaDTO(matriculaRepo.save(matriculaAtualizada));
+        matricula.setAluno(aluno);
+        matricula.setCurso(curso);
+        matricula.setStatus(dados.status());
+        
+        return new MatriculaDTO(repo.save(matricula));
     }
 
     public void delete(long id) {
-        if (!matriculaRepo.existsById(id)) {
-            throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Matrícula não encontrada"
-            );
-        }
-        matriculaRepo.deleteById(id);
+        if(!repo.existsById(id))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Matrícula não encontrada");
+        repo.deleteById(id);
     }
 }

@@ -1,46 +1,24 @@
-@url = http://localhost:8080
+@url = https://organic-guacamole-4xpqj999r4j2j4qw-8080.app.github.dev
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJGaWxtZXMgQVBJIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjM0OTM5MjZ9.hn6DMk0c2wCMVeO4KxOPxu86LUKu7hHcGEXd_rItlqE
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJGaWxtZXMgQVBJIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIyODc1NzJ9.FSkSZUhSSxxypgnPQKAmrkKxec2Fkt7v3NE-h3B_VR4
-
-POST {{url}}/alunos
-Authorization: Bearer {{token}}
-Content-Type: application/json
-
-{
-    "nome": "João Silva",
-    "email": "joao.silva@exemplo.com",
-    "cpf": "123.456.789-00",
-    "dataNascimento": "1990-05-15"
-}
-
-###
-
-# Obter todos os alunos
 GET {{url}}/alunos
 Authorization: Bearer {{token}}
 
 ###
-
-# Atualizar aluno
-PUT {{url}}/alunos/1
-Authorization: Bearer {{token}}
+POST {{url}}/alunos
 Content-Type: application/json
 
 {
-    "nome": "João Silva Atualizado",
-    "email": "joao.silva.atualizado@exemplo.com",
-    "cpf": "123.456.789-00",
-    "dataNascimento": "1990-05-15"
+    "nome" : "Carlos Costa"
 }
 
 ###
+PUT {{url}}/alunos/3
+Content-Type: application/json
 
-# Obter aluno específico
-GET {{url}}/alunos/1
-Authorization: Bearer {{token}}
+{
+    "nome" : "Daniel Vargas"
+}
 
 ###
-
-# Deletar aluno
-DELETE {{url}}/alunos/1
-Authorization: Bearer {{token}}
+DELETE {{url}}/alunos/3

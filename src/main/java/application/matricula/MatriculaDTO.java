@@ -1,12 +1,13 @@
 package application.matricula;
 
-import application.aluno.Aluno;
-import application.curso.Curso;
+import application.aluno.AlunoDTO;
+import application.curso.CursoDTO;
 import java.time.LocalDate;
 
-public record MatriculaDTO(long id, LocalDate dataMatricula, String status, Aluno aluno, Curso curso) {
-
-    public MatriculaDTO(Matricula dados) {
-        this(dados.getId(), dados.getDataMatricula(), dados.getStatus(), dados.getAluno(), dados.getCurso());
+public record MatriculaDTO(Long id, LocalDate dataMatricula, String status, AlunoDTO aluno, CursoDTO curso) {
+    public MatriculaDTO(Matricula m) {
+        this(m.getId(), m.getDataMatricula(), m.getStatus(), 
+             new AlunoDTO(m.getAluno()), 
+             new CursoDTO(m.getCurso()));
     }
 }

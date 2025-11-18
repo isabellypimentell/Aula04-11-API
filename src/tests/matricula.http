@@ -1,46 +1,15 @@
-@url = http://localhost:8080
+@url = https://organic-guacamole-4xpqj999r4j2j4qw-8080.app.github.dev
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJGaWxtZXMgQVBJIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjM0OTM5MjZ9.hn6DMk0c2wCMVeO4KxOPxu86LUKu7hHcGEXd_rItlqE
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJGaWxtZXMgQVBJIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIyODc1NzJ9.FSkSZUhSSxxypgnPQKAmrkKxec2Fkt7v3NE-h3B_VR4
-
-# Criar matrícula
-POST {{url}}/matriculas
-Authorization: Bearer {{token}}
-Content-Type: application/json
-
-{
-    "idAluno": 1,
-    "idCurso": 2,
-    "dataMatricula": "2025-10-20"
-}
-
-###
-
-# Obter todas as matrículas
 GET {{url}}/matriculas
 Authorization: Bearer {{token}}
 
 ###
-
-# Atualizar matrícula
-PUT {{url}}/matriculas/1
-Authorization: Bearer {{token}}
+POST {{url}}/matriculas
 Content-Type: application/json
 
 {
-    "idAluno": 1,
-    "idCurso": 2,
-    "dataMatricula": "2025-10-20",
-    "status": "ativo"
+    "idAluno" : "6",
+    "idCurso" : "6"
+
 }
-
-###
-
-# Obter matrícula específica
-GET {{url}}/matriculas/1
-Authorization: Bearer {{token}}
-
-###
-
-# Deletar matrícula
-DELETE {{url}}/matriculas/1
-Authorization: Bearer {{token}}

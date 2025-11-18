@@ -1,9 +1,11 @@
-# @url = http://localhost:8080
+@url = https://organic-guacamole-4xpqj999r4j2j4qw-8080.app.github.dev
 
-# POST {{url}}/auth
-# Content-Type: application/json
+POST {{url}}/auth
+Content-Type: application/json
 
-# {
-#     "nomeDeUsuario" : "admin",
-#     "senha" : "admin"
-# }
+{
+    "nomeDeUsuario": "admin",
+    "senha": "admin"
+}
+
+###

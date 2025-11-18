@@ -1,33 +1,24 @@
 plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.3.3'  // Certifique-se de que está utilizando a versão certa do Spring Boot
-    id 'io.spring.dependency-management' version '1.1.6'
+	id 'java'
+	id 'org.springframework.boot' version '3.3.3'
+	id 'io.spring.dependency-management' version '1.1.6'
 }
 
 repositories {
-    mavenCentral()  // Repositório Maven Central
+	mavenCentral()
 }
 
 dependencies {
-    // Lombok
-    compileOnly 'org.projectlombok:lombok:1.18.24'  // Garantir a versão mais recente do Lombok
-    annotationProcessor 'org.projectlombok:lombok:1.18.24'  // Annotation processor do Lombok
-    
-    // Spring Boot Web
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    
-    // Spring Boot JPA
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    
-    // MySQL
-    implementation 'mysql:mysql-connector-java:8.0.33'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'com.auth0:java-jwt:4.4.0'
+	implementation 'mysql:mysql-connector-java:8.0.33'
+	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
+	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
 
-    // Spring Security
-    implementation 'org.springframework.boot:spring-boot-starter-security:3.4.4'
-    
-    // JWT (Auth0)
-    implementation 'com.auth0:java-jwt:4.5.0'  // Versão do java-jwt
-    
-    // Testes
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'  // Dependência para testes no Spring Boot
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
 }
