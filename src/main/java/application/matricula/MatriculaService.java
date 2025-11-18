@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import application.aluno.AlunoService;
+import application.curso.CursoService;
+
 @Service
 public class MatriculaService {
 

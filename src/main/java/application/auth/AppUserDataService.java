@@ -24,31 +24,19 @@ public class AppUserDataService implements UserDetailsService {
             throw new UsernameNotFoundException("Usuário não encontrado");
         }
 
-        // Obtendo as roles do usuário e convertendo para um array de Strings
-        // Supondo que o método getRoles() retorne uma lista de objetos Role
-        String[] roles = usuario.get().getRoles().stream()
-                                 .map(role -> role.getNome()) // Ou use outro método se for outra estrutura
-                                 .toArray(String[]::new);
+        // Agora usamos o método getRolesAsList() para obter as roles do usuário como lista
+        String[] roles = usuario.get().getRolesAsList().toArray(new String[0]);
 
         return User.builder()
             .username(usuario.get().getNomeDeUsuario())
-            .password(usuario.get().getSenha()) // A senha deve já estar codificada no banco
-            .roles(roles) // Atribuindo as roles ao usuário
+            .password(usuario.get().getSenha()) // A senha já deve estar codificada no banco
+            .roles(roles) // Aqui são atribuídas as roles do usuário
             .build();
     }
-
-    // Método de codificação de senha para uso na criação de usuários
+    
+    // Método de codificação de senha para uso na criação de usuário
     public String encodePassword(String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder.encode(password); // Retorna a senha codificada
-    }
-
-    // Método para salvar ou atualizar usuário, garantindo que a senha esteja codificada
-    public Usuario saveOrUpdateUsuario(Usuario usuario) {
-        // Codificando a senha antes de salvar no banco de dados
-        if (usuario.getSenha() != null && !usuario.getSenha().isEmpty()) {
-            usuario.setSenha(encodePassword(usuario.getSenha()));
-        }
-        return usuarioRepo.save(usuario); // Salvando ou atualizando o usuário
+        return encoder.encode(password);
     }
 }
