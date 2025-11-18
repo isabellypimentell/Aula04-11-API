@@ -1,0 +1,46 @@
+@url = http://localhost:8080
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJGaWxtZXMgQVBJIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIyODc1NzJ9.FSkSZUhSSxxypgnPQKAmrkKxec2Fkt7v3NE-h3B_VR4
+
+POST {{url}}/alunos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "nome": "João Silva",
+    "email": "joao.silva@exemplo.com",
+    "cpf": "123.456.789-00",
+    "dataNascimento": "1990-05-15"
+}
+
+###
+
+# Obter todos os alunos
+GET {{url}}/alunos
+Authorization: Bearer {{token}}
+
+###
+
+# Atualizar aluno
+PUT {{url}}/alunos/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "nome": "João Silva Atualizado",
+    "email": "joao.silva.atualizado@exemplo.com",
+    "cpf": "123.456.789-00",
+    "dataNascimento": "1990-05-15"
+}
+
+###
+
+# Obter aluno específico
+GET {{url}}/alunos/1
+Authorization: Bearer {{token}}
+
+###
+
+# Deletar aluno
+DELETE {{url}}/alunos/1
+Authorization: Bearer {{token}}

@@ -1,0 +1,45 @@
+@url = http://localhost:8080
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJGaWxtZXMgQVBJIiwic3ViIjoiYWRtaW4iLCJleHAiOjE3NjIyODc1NzJ9.FSkSZUhSSxxypgnPQKAmrkKxec2Fkt7v3NE-h3B_VR4
+
+# Criar um curso
+POST {{url}}/cursos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "nome": "Desenvolvimento Web",
+    "descricao": "Curso de desenvolvimento front-end e back-end",
+    "cargaHoraria": 120
+}
+
+###
+
+# Obter todos os cursos
+GET {{url}}/cursos
+Authorization: Bearer {{token}}
+
+###
+
+# Atualizar curso
+PUT {{url}}/cursos/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "nome": "Desenvolvimento Web Avançado",
+    "descricao": "Curso avançado de desenvolvimento web",
+    "cargaHoraria": 160
+}
+
+###
+
+# Obter curso específico
+GET {{url}}/cursos/1
+Authorization: Bearer {{token}}
+
+###
+
+# Deletar curso
+DELETE {{url}}/cursos/1
+Authorization: Bearer {{token}}
